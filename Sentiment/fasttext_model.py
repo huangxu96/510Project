@@ -177,5 +177,5 @@ if __name__ == "__main__":
     if not os.path.exists(vocab_dir):
         build_vocab(train_dir, vocab_dir, vocab_size)
 
-    main()#68.5
+    #main()#
     test()

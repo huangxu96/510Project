@@ -19,7 +19,7 @@ class TextRNN(object):
         self.vocab_size = vocab_size
         self.embedding_dim = 64
         self.num_layers = 2
-        self.rnn_name = 'gru'#'lstm'
+        self.rnn_name = 'lstm'#'lstm'
         self.hidden_dim = 128
         self.learning_rate = 1e-3
 
@@ -134,12 +134,12 @@ def main():
 
                     if train_steps % 50 == 0:
                         val_loss, val_acc = evaluate(sess, model, x_val, y_val)
-                        # saver.save(sess, "./model/rnn/model", global_step=train_steps)
+                        #saver.save(sess, "./model/lstm/model", global_step=train_steps)
                     if val_acc > best_acc_val:
                         # 保存最好结果
                         best_acc_val = val_acc
                         last_improved = train_steps
-                        saver.save(sess, "./model/rnn/model", global_step=train_steps)
+                        saver.save(sess, "./model/lstm/model", global_step=train_steps)
                         # saver.save(sess=session, save_path=save_path)
                         improved_str = '*'
 def test_model(sess, graph, x_, y_):
@@ -176,8 +176,11 @@ def test():
     word_to_id, id_to_word = word_2_id(vocab_dir)
     cat_to_id, id_to_cat = cat_2_id()
     x_test, y_test = process_file(test_dir, word_to_id, cat_to_id, max_length)
-    graph_path = "./model/rnn/model-1000.meta"
-    model_path = "./model/rnn"
+    #graph_path = "./model/gru/model-1000.meta"
+    #model_path = "./model/gru"
+
+    graph_path = "./model/lstm/model-1000.meta"
+    model_path = "./model/lstm"
     graph = tf.Graph()
     saver = tf.train.import_meta_graph(graph_path, graph=graph)
     sess = tf.Session(graph=graph)
@@ -200,4 +203,4 @@ if __name__ == "__main__":
         build_vocab(train_dir, vocab_dir, vocab_size)
 
     #main() #
-    test() #0.632
+    test()
