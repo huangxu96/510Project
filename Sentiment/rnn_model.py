@@ -19,7 +19,7 @@ class TextRNN(object):
         self.vocab_size = vocab_size
         self.embedding_dim = 64
         self.num_layers = 2
-        self.rnn_name = 'lstm'#'lstm'
+        self.rnn_name = 'gru'#'lstm'
         self.hidden_dim = 128
         self.learning_rate = 1e-3
 
@@ -139,7 +139,7 @@ def main():
                         # 保存最好结果
                         best_acc_val = val_acc
                         last_improved = train_steps
-                        saver.save(sess, "./model/lstm/model", global_step=train_steps)
+                        saver.save(sess, "./model/gru/model", global_step=train_steps)
                         # saver.save(sess=session, save_path=save_path)
                         improved_str = '*'
 def test_model(sess, graph, x_, y_):
@@ -179,8 +179,8 @@ def test():
     #graph_path = "./model/gru/model-1000.meta"
     #model_path = "./model/gru"
 
-    graph_path = "./model/lstm/model-1000.meta"
-    model_path = "./model/lstm"
+    graph_path = "./model/gru/model-250.meta"
+    model_path = "./model/gru"
     graph = tf.Graph()
     saver = tf.train.import_meta_graph(graph_path, graph=graph)
     sess = tf.Session(graph=graph)

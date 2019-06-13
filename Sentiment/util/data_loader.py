@@ -15,8 +15,10 @@ def read_file(file_name):
     :return:
     """
     contents, labels = [], []
-    with open(file_name) as f:
+
+    with open(file_name, encoding="utf-8") as f:
         for line in f:
+
             try:
                 label, content = line.strip().split("\t")
                 if content:
